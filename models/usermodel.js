@@ -1,0 +1,70 @@
+import mongoose from "mongoose";
+
+
+const userSchema = mongoose.Schema({
+    name:{
+        type:String,
+        required:true,
+    },
+    email:{
+        type:String,
+        unique:true,
+        trim:true,
+        lowercase:true,
+        required:true,
+    },
+    password:{
+        type:String,
+        required:true,
+    },
+    mobileNumber:{
+        type:String,
+        required:true,
+        unique:true,
+        default:""
+    },
+    address:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"address"
+        }
+    ],
+    cart:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"cart"
+    },
+    orders:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"order",
+        }
+    ],
+    otp:{
+        type:String,
+        default:undefined,
+    },
+    image:{
+        type:String,
+        default:"",
+    },
+    otpLife:{
+        type:Number,
+        default:undefined,
+    },
+    isVerified:{
+        type:Boolean,
+        default:false,
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false,
+    },
+    reviews:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"reviews"
+    }]
+},{
+    timestamps:true,
+})
+
+export default mongoose.model("user",userSchema);
